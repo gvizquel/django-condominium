@@ -10,23 +10,21 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
-import os
+
+# Librerias Standard
+import os  # Librerias desarrolladas por mi
+
+# Librerias Django
+from django.utils.translation import gettext_lazy as _
+
+# Librerias de terceros
+import condominium
+import django_heroku
+from condominium.secret import *
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '@(@7nxlo548$34%4v*e0pd1rr+4(ug%4(7q$+#us%g6hlj70y_'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
-
+MVJT = os.path.dirname(condominium.__file__)
 
 # Application definition
 
@@ -37,11 +35,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'dal',
+    'dal_select2',
+    'apps.cuenta',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -52,6 +54,20 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'condominium.urls'
 
 TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.jinja2.Jinja2',
+        'DIRS': [
+            os.path.join(BASE_DIR, 'jinja2'),
+            os.path.join(MVJT, 'jinja2'),
+        ],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django_settings_export.settings_export',
+            ],
+            'environment': 'condominium.jinja2.environment'
+        },
+    },
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [],
@@ -67,18 +83,30 @@ TEMPLATES = [
     },
 ]
 
+NOMBRE_APP = 'Django Condominium'
+ESLOGAN = 'Software de identificación y caluación de bienes'
+PREFIJO = 'Django'
+SUFIJO = 'Condominium'
+VERSION = '1.0'
+INICIAL_A = 'D'
+INICIAL_B = 'C'
+
+SETTINGS_EXPORT = [
+    'NOMBRE_APP',
+    'ESLOGAN',
+    'PREFIJO',
+    'SUFIJO',
+    'VERSION',
+    'INICIAL_A',
+    'INICIAL_B'
+]
+
+
 WSGI_APPLICATION = 'condominium.wsgi.application'
 
+GOOGLE_RECAPTCHA_SECRET_KEY = '6LevF1gUAAAAAPn3z8EswCgIk1S_jLKYdf4s62B9'
 
-# Database
-# https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+AUTH_USER_MODEL = 'cuenta.Persona'
 
 
 # Password validation
@@ -103,9 +131,27 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+def gettext(cadena):
+    '''  "dummy" gettext() function
+    '''
+    return cadena
+
+LANGUAGE_CODE = 'es'
+
+TIME_ZONE = 'Europe/Madrid'
+
+# Restricts languages
+LANGUAGES = [
+    ('fr', _('French')),
+    ('en', _('English'))
+]
+
+# Where Django looks for translation files
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale'),
+
+]
 
 USE_I18N = True
 
@@ -113,8 +159,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+LOGIN_URL = '/cuenta/login'
+LOGIN_REDIRECT_URL = '/cuenta/perfil'
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.2/howto/static-files/
-
-STATIC_URL = '/static/'
+django_heroku.settings(locals())
