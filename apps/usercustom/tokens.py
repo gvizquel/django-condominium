@@ -5,7 +5,7 @@ from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils import six
 
 
-class ActivacionCuentaTokenGenerator(PasswordResetTokenGenerator):
+class AccountActivacionTokenGenerator(PasswordResetTokenGenerator):
     """Esta clase genera un token que se envía en correo para validadar el \
     registro del usuario
     """
@@ -15,4 +15,4 @@ class ActivacionCuentaTokenGenerator(PasswordResetTokenGenerator):
             six.text_type(user.is_active)
         )
 
-account_activation_token = ActivacionCuentaTokenGenerator()
+account_activation_token = AccountActivacionTokenGenerator()

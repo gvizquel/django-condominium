@@ -1,10 +1,10 @@
 <header class="main-header">
     <!-- Logo -->
-    <a href="#">
+    <a href="#" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini"><b>{{ settings.INICIAL_A }}/</b>{{ settings.INICIAL_B }}</span>
         <!-- logo for regular state and mobile devices -->
-        <div class="login-logo"><b>{{ settings.PREFIJO }}</b>{{ settings.SUFIJO }}</a></div>
+        <span class="logo-logo"><b>{{ settings.PREFIJO }}/</b>{{ settings.SUFIJO }}</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -39,10 +39,10 @@
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="{{ url('cuenta:perfil') }}" class="btn btn-default btn-flat">Perfil</a>
+                                <a href="{{ url('usercustom:perfil') }}" class="btn btn-default btn-flat">Perfil</a>
                             </div>
                             <div class="pull-right">
-                                <a href="{{ url('cuenta:logout') }}" class="btn btn-default btn-flat">Salir</a>
+                                <a href="{{ url('usercustom:logout') }}" class="btn btn-default btn-flat">Salir</a>
                             </div>
                         </li>
                     </ul>

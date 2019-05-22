@@ -24,14 +24,14 @@ Para trabajar en equipo, desarrollando en cualquier lenguaje de programación, s
 ```console
 INSTALLED_APPS = [
     ...
-    'cuenta',
+    'usercustom',
     ...
 ]
 GOOGLE_RECAPTCHA_SECRET_KEY = 'LaClaveDeGoogleReCaptcha'
 
 PASSWORD_RESET_TIMEOUT_DAYS = 2
 
-AUTH_USER_MODEL = 'cuenta.Persona'
+AUTH_USER_MODEL = 'usercustom.Persona'
 
 ######################## ENVIO DE CORREO EN PRODUCCIÓN ########################
 EMAIL_HOST = 'IP ó nombre de dominio del servidor de envío de correos'

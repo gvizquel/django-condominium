@@ -11,7 +11,7 @@ from django.urls import path, reverse_lazy
 # Librerias en carpetas locales
 from .views import activar, avatar, cambio_clave, perfil, registro
 
-app_name = 'cuenta'
+app_name = 'usercustom'
 
 urlpatterns = [
     path('registro', registro, name='registro'),
@@ -24,7 +24,7 @@ urlpatterns = [
         ),
         name='login'
     ),
-    path('salir', LogoutView.as_view(next_page='cuenta:login'), name='logout'),
+    path('salir', LogoutView.as_view(next_page='usercustom:login'), name='logout'),
     path('perfil', login_required(perfil), name='perfil'),
     path('cambiar-clave', login_required(cambio_clave), name='cambiar-clave'),
     path(
@@ -39,7 +39,7 @@ urlpatterns = [
         PasswordResetView.as_view(
             template_name='reinicio_clave.html',
             email_template_name='reinicio_correo.html',
-            success_url=reverse_lazy('cuenta:reiniciar-enviado')
+            success_url=reverse_lazy('usercustom:reiniciar-enviado')
         ),
         name='reiniciar-clave'
     ),
@@ -47,7 +47,7 @@ urlpatterns = [
         'nueva-clave/<uidb64>/<token>',
         PasswordResetConfirmView.as_view(
             template_name='reinicio_nueva_clave.html',
-            success_url=reverse_lazy('cuenta:perfil'),
+            success_url=reverse_lazy('usercustom:perfil'),
             post_reset_login=True,
         ),
         name='nueva-clave'

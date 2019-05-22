@@ -1,5 +1,5 @@
 """
-Sección administrativa del modelo cuenta
+Sección administrativa del modelo usercustom
 """
 # Librerias Django
 from django.contrib import admin
@@ -12,6 +12,8 @@ from .models import Persona  # , Archivo
 
 
 class PersonaAdmin(UserAdmin):
+    """ Admin para usuarios
+    """
     form = PersonaChangeForm
     add_form = PersonaCreationForm
     # fieldsets = (
@@ -62,7 +64,7 @@ class PersonaAdmin(UserAdmin):
     ordering = ('id',)
 
     # def get_search_results(self, request, queryset, search_term):
-    #     queryset, use_distinct = super(PersonaAdmin, self).get_search_results(
+    #   queryset, use_distinct = super(PersonaAdmin, self).get_search_results(
     #         request, queryset, search_term)
     #     try:
     #         search_term_as_int = int(search_term)

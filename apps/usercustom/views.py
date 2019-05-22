@@ -11,7 +11,6 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.sites.shortcuts import get_current_site
 from django.shortcuts import redirect, render
 from django.template.loader import render_to_string
-from django.urls import reverse_lazy
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 
@@ -33,7 +32,7 @@ def registro(request):
         contexto['form'] = PersonaCreationForm(request.POST)
         if contexto['form'].is_valid():
 
-            #### Begin reCAPTCHA validation ####
+            # Begin reCAPTCHA validation
             recaptcha_response = request.POST.get('g-recaptcha-response')
             url = 'https://www.google.com/recaptcha/api/siteverify'
             values = {
@@ -42,14 +41,14 @@ def registro(request):
             }
             data = requests.get(url, params=values, verify=True)
             result = data.json()
-            #### End reCAPTCHA validation ####
+            # End reCAPTCHA validation
             if result['success']:
 
                 user = contexto['form'].save(commit=False)
                 user.save()
 
                 current_site = get_current_site(request)
-                subject = 'Activa tú cuenta en el {{ settings.NOMBRE_APP }}'
+                subject = '{{ settings.NOMBRE_APP }} account activation'
                 contexto = {
                     'user': user,
                     'domain': current_site.domain,
@@ -60,8 +59,8 @@ def registro(request):
                 user.email_user(subject, message)
 
                 return render(request, 'registro_enviado.html', contexto)
-            else:
-                contexto['reCAPTCHA_error'] = 'reCAPTCHA invalido. Por favor \
+
+            contexto['reCAPTCHA_error'] = 'reCAPTCHA invalido. Por favor \
                     vuelva a intentar su registro.'
     else:
         contexto['form'] = PersonaCreationForm()
@@ -83,7 +82,7 @@ def activar(request, uidb64, token):
         user.is_active = True
         user.save()
         login(request, user)
-        return redirect('cuenta:perfil')
+        return redirect('usercustom:perfil')
 
     return render(request, 'registro_invalido.html')
 
@@ -96,10 +95,13 @@ def perfil(request):
     usuario = Persona.objects.get(pk=request.user.pk)
 
     if request.method == 'POST':
-        contexto['form'] = PerfilForm(request.POST, request.FILES, instance=usuario)
+        print('Method: %r\n%r', request.method, request.POST)
+        contexto['form'] = PerfilForm(
+            request.POST, request.FILES, instance=usuario)
         if contexto['form'].is_valid():
             contexto['form'].save()
-            messages.success(request, '¡La actualización de los datos de su perfil se proceso exitosamente!')
+            messages.success(request, '¡La actualización de los datos de su \
+                perfil se proceso exitosamente!')
     else:
         # Para formatear la fecha en el formulario
         if usuario.fecha_nacimiento is not None:
@@ -118,8 +120,9 @@ def cambio_clave(request):
         if form.is_valid():
             user = form.save()
             update_session_auth_hash(request, user)  # Importante!
-            messages.success(request, '¡Su cambio de clave se proceso exitosamente!')
-            return redirect('cuenta:perfil')
+            messages.success(request, '¡Su cambio de clave se proceso \
+                exitosamente!')
+            return redirect('usercustom:perfil')
         else:
             messages.error(request, 'Su intento de cambio de clave tiene \
                 errores. Por favor corrijalos.')
@@ -139,7 +142,7 @@ def avatar(request):
         if form.is_valid():
             form.save()
 
-    return redirect('cuenta:perfil')
+    return redirect('usercustom:perfil')
 
 
 # ========================================================================== #

@@ -3,7 +3,7 @@
 Formularios para la app globales
 """
 # Librerias Standard
-import datetime
+from datetime import date
 import re
 
 # Librerias Django
@@ -54,18 +54,19 @@ class PerfilForm(ModelForm):
         }
 
     def clean(self):
-        diccionario_limpio = self.cleaned_data
-        fecha_nacimiento = diccionario_limpio.get('fecha_nacimiento')
-        cedula_identidad = str(diccionario_limpio.get('cedula_identidad'))
+        super().clean()
+        fecha_nacimiento = self.cleaned_data.get('fecha_nacimiento')
+        cedula_identidad = str(self.cleaned_data.get('cedula_identidad'))
 
-        #Validamos que la persona tiene menos de diez y ocho(18) años
-        fecha_actual = datetime.date.today()
+        # Validamos que la persona tiene menos de diez y ocho(18) años
+        fecha_actual = date.today()
+        print('Fecha: %s' % fecha_nacimiento)
         edad = fecha_actual.year - fecha_nacimiento.year - ((fecha_actual.month, fecha_actual.day) < (fecha_nacimiento.month, fecha_nacimiento.day))
         if edad < 18:
             self.add_error('fecha_nacimiento', "Disculpe, debe ser mayor de edad para poder registrarse en\
                              el sistema")
 
-         #Si la persona tiene nueve(9) años o mas, validamos la cédula tenga la forma 99999999
+        #  Si la persona tiene nueve(9) años o mas, validamos la cédula tenga la forma 99999999
         patron_mayor_edad = re.compile('^\d{5,8}$')
         if edad >= 9 and patron_mayor_edad.match(cedula_identidad) is None:
             self.add_error('cedula_identidad', "La cédula de identidad de las personas mayores o iguales\

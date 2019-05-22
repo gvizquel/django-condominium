@@ -1,6 +1,6 @@
 {% extends "base_jinja.html" %}
 
-{% block title %} Cuenta | Perfil {% endblock title %}
+{% block title %} Account | Perfil {% endblock title %}
 
 {% block stylesheets %}
     {{ super() }}
@@ -32,7 +32,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Cuenta
+                Account
                 <small>Perfil del usuario</small>
             </h1>
         </section>
@@ -69,7 +69,7 @@
                         <div class="box-body box-profile">
                             <label class="label" data-toggle="tooltip" title="Change your avatar">
                                 <img class="img-responsive center-block img-rounded " id="avatar_img" src="{{ request.user.avatar.url }}" alt="{{ request.user }}">
-                                <form method="post" enctype="multipart/form-data" action="{{ url('cuenta:avatar') }}" id="formUpload">
+                                <form method="post" enctype="multipart/form-data" action="{{ url('usercustom:avatar') }}" id="formUpload">
                                     <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
                                     <input type="file" class="sr-only" id="id_avatar" name="avatar" accept="image/*">
                                   </form>
@@ -80,7 +80,7 @@
                         </div>
                         <!-- /.box-body -->
                         <div class="box-footer">
-                            <a href="{{ url('cuenta:cambiar-clave') }}" class="btn btn-primary btn-block">Cambiar Password</a>
+                            <a href="{{ url('usercustom:cambiar-clave') }}" class="btn btn-primary btn-block">Cambiar Password</a>
                         </div>
                             <!-- /.box-footer -->
                     </div>
@@ -98,7 +98,7 @@
                         <!-- /.box-header -->
                         <!-- form start -->
                         {% block contenido %}
-                        <form class="form-horizontal" method="post" role="form">
+                        <form class="form-horizontal" action="" method="post" role="form">
                             <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
                             <div class="box-body">
                                 <div class="row">
@@ -441,7 +441,7 @@
                         var formData = new FormData();
 
                         formData.append('avatar', blob, 'avatar.jpg');
-                        $.ajax('{{ url('cuenta:avatar')}}', {
+                        $.ajax('{{ url('usercustom:avatar')}}', {
                             method: 'POST',
                             headers:{"X-CSRFToken": csrftoken},
                             data: formData,

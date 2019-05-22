@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'dal',
     'dal_select2',
-    'apps.cuenta',
+    'apps.usercustom',
 ]
 
 MIDDLEWARE = [
@@ -106,7 +106,7 @@ WSGI_APPLICATION = 'condominium.wsgi.application'
 
 GOOGLE_RECAPTCHA_SECRET_KEY = '6LevF1gUAAAAAPn3z8EswCgIk1S_jLKYdf4s62B9'
 
-AUTH_USER_MODEL = 'cuenta.Persona'
+AUTH_USER_MODEL = 'usercustom.Persona'
 
 
 # Password validation
@@ -137,12 +137,13 @@ def gettext(cadena):
     '''
     return cadena
 
-LANGUAGE_CODE = 'es'
+LANGUAGE_CODE = 'en'
 
 TIME_ZONE = 'Europe/Madrid'
 
 # Restricts languages
 LANGUAGES = [
+    ('es', _('es')),
     ('fr', _('French')),
     ('en', _('English'))
 ]
@@ -159,7 +160,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-LOGIN_URL = '/cuenta/login'
-LOGIN_REDIRECT_URL = '/cuenta/perfil'
+LOGIN_URL = '/account/login'
+LOGIN_REDIRECT_URL = '/account/perfil'
 
 django_heroku.settings(locals())

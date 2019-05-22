@@ -46,7 +46,7 @@
                     <div class="alert alert-warning alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <h4><i class="icon fa fa-warning"></i> ¡Cuidado!</h4>
-                        <p>Sú cuenta no tiene los privilegios necesarios para ingresar a esta página. Para continuar por favor ingrese con una cuenta que tenga los prievilegios requeridos.</p>
+                        <p>Sú account no tiene los privilegios necesarios para ingresar a esta página. Para continuar por favor ingrese con una account que tenga los prievilegios requeridos.</p>
                     </div>
                     {% else %}
                     <div class="alert alert-info alert-dismissible">
@@ -92,8 +92,8 @@
                 </form>
                 <!-- /.social-auth-links -->
 
-                <a href="{{ url('cuenta:reiniciar-clave') }}">He olvidado mi contraseña</a><br>
-                <a href="{{ url('cuenta:registro') }}" class="text-center">¿No posee una cuenta? ¡Registrese ahora!</a>
+                <a href="{{ url('usercustom:reiniciar-clave') }}">He olvidado mi contraseña</a><br>
+                <a href="{{ url('usercustom:registro') }}" class="text-center">¿No posee una account? ¡Registrese ahora!</a>
 
             </div>
             <!-- /.login-box-body -->

@@ -14,7 +14,7 @@ from django.db import models
 from django.utils import timezone
 
 # Librerias en carpetas locales
-from .libSobreEscribirImagen import SobreEscribirImagen
+from .sobre_escribir_imagen import SobreEscribirImagen
 
 
 def image_path(instance, filename):

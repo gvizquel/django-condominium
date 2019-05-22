@@ -1,0 +1,25 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+pylint-django = "*"
+isort = "*"
+pep8 = "*"
+
+[packages]
+django = "*"
+jinja2 = "*"
+django-autocomplete-light = "*"
+pillow = "*"
+requests = "*"
+django-settings-export = "*"
+psycopg2-binary = "*"
+django-heroku = "*"
+gunicorn = "*"
+pep8 = "*"
+pylint-django = "*"
+
+[requires]
+python_version = "3.7"
