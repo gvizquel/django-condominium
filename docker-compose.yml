@@ -1,0 +1,14 @@
+version: '2'
+
+services:
+  db:
+    image: postgres:latest
+
+  web:
+    build: .
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
