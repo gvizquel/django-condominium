@@ -131,7 +131,6 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-
 def gettext(cadena):
     '''  "dummy" gettext() function
     '''
@@ -139,7 +138,7 @@ def gettext(cadena):
 
 LANGUAGE_CODE = 'en'
 
-TIME_ZONE = 'Europe/Madrid'
+TIME_ZONE = 'America/Caracas'
 
 # Restricts languages
 LANGUAGES = [
