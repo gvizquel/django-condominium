@@ -1,11 +1,9 @@
 {% autoescape off %}
-    Gracias por registrarte en el {{ settings.NOMBRE_APP }} {{ user.first_name }} {{ user.last_name }},
+    Gracias por registrarte en el {{ nombre_app }} {{ user.first_name }} {{ user.last_name }}, tu usuario es: {{ user.username }}.
 
     Por favor sigue el siguiente enlace para confirmar tú registro y activar tu account:
 
     http://{{ domain }}{{ url('usercustom:activar', args=[uid, token]) }}
-
-    En caso de que lo hayas olvidado tu usuario es: {{ user.username }}
 
     Las credenciales de este enlace tienen una duración de dos (2) días.
 {% endautoescape %}

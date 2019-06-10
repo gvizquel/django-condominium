@@ -52,7 +52,7 @@ def registro(request):
                 contexto = {
                     'user': user,
                     'domain': current_site.domain,
-                    'uid': urlsafe_base64_encode(force_bytes(user.pk)).decode('utf-8'),
+                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                     'token': account_activation_token.make_token(user),
                 }
                 message = render_to_string('registro_correo.html', contexto)

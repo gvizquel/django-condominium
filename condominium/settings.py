@@ -163,3 +163,21 @@ LOGIN_URL = '/account/login'
 LOGIN_REDIRECT_URL = '/account/perfil'
 
 django_heroku.settings(locals())
+
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/2.2/howto/static-files/
+
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = 'media'
+
+STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
+
+
+# During development only
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

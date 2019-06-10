@@ -1,14 +1,51 @@
-version: '2'
+version: '3.7'
 
 services:
-  db:
-    image: postgres:latest
-
   web:
-    build: .
+    restart: always
+    build:
+      context: .
+      target: python
     volumes:
-      - .:/code
+      - static:/home/webapp/static
+      - run:/home/webapp/run
+    command: bin/gunicorn_start.sh
     ports:
-      - "8000:8000"
+      - 8000:8000
+    environment:
+      - SQL_HOST=db
+      - SQL_PORT=5432
+      - DATABASE=postgres
     depends_on:
       - db
+    container_name: condominium-container-python
+  db:
+    restart: always
+    image: postgres:11.3-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-123456}
+      POSTGRES_DB:  ${POSTGRES_DB:-condominium_db}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    container_name: condominium-container-postgres
+  nginx:
+    restart: always
+    build:
+      context: .
+      target: nginx
+    volumes:
+      - static:/home/webapp/static
+      - run:/home/webapp/run
+    ports:
+      - "80:80"
+    depends_on:
+      - web
+    container_name: condominium-container-nginx
+
+volumes:
+  postgres_data:
+  run:
+  static:
